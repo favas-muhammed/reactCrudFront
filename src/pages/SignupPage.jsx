@@ -15,7 +15,8 @@ function SignupPage() {
 
   return (
     <div className="signup-page">
-      <h2>Sign Up for PotterBoard</h2>
+      <img src="./src/assets/Logo.png" alt="PotterBoard" className="logo" />
+
       <form onSubmit={handleSignup}>
         <input
           type="text"

@@ -14,8 +14,7 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      <img src="./assets/logo.png" alt="PotterBoard" className="logo" />
-      <h1>PotterBoard</h1>
+      <img src="./src/assets/Logo.png" alt="PotterBoard" className="logo" />
 
       <form onSubmit={handleGuestLogin} className="guest-login">
         <input

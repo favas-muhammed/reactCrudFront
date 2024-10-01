@@ -14,7 +14,8 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      <h2>Login to PotterBoard</h2>
+      <img src="./src/assets/Logo.png" alt="PotterBoard" className="logo" />
+
       <form onSubmit={handleLogin}>
         <input
           type="text"
