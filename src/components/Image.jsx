@@ -1,46 +1,38 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-function Image({ image }) {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  console.log(image);
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/${data.pictures}`);
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const blob = await response.blob();
-        const reader = new FileReader();
-        const data = await new Promise((resolve, reject) => {
-          reader.onload = () => {
-            resolve(reader.result);
-          };
-          reader.readAsDataURL(blob);
-          reader.onerror = () => {
-            reject(reader.error);
-          };
-        });
-        setData(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchImage();
-  }, [image]);
+function Image({ image, handleDelete }) {
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHover(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHover(false);
+  };
 
   return (
-    <div>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <img src={data} alt={image.id} />
+    <div
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      className="image-container"
+    >
+      <img src={image.image} alt={image.id} />
+      {isHover && (
+        <div className="image-options">
+          <button
+            className="image-option delete-option"
+            onClick={() => handleDelete(image.id)}
+          >
+            <i className="fas fa-trash-alt"></i>
+          </button>
+          <button className="image-option edit-option">
+            <i className="fas fa-edit"></i>
+          </button>
+          <button className="image-option view-option">
+            <i className="fas fa-eye"></i>
+          </button>
+        </div>
       )}
     </div>
   );
