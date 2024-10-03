@@ -21,27 +21,32 @@ function MainApp() {
     fetchImages();
   }, []);
 
+  const imagesElement = images.map((image) => (
+    <div key={image.id}>
+      <img
+        src={image.image}
+        alt={image.id}
+        onLoad={(e) => console.log("Image loaded:", e.target.src)}
+        onClick={() => {
+          const enlargedImage = document.getElementById("enlargedImage");
+          enlargedImage.style.display = "block";
+          const enlargedImageSrc = document.getElementById("enlargedImageSrc");
+          enlargedImageSrc.src = image.image;
+          const closeButton = document.getElementById("closeButton");
+          closeButton.addEventListener("click", () => {
+            enlargedImage.style.display = "none";
+          });
+        }}
+      />
+    </div>
+  ));
+
   return (
-    <div className="main-app">
-      <h2>Welcome to PotterBoard</h2>
+    <div className="MainApp">
       {error ? (
         <p>Error: {error}</p>
       ) : (
-        <div className="image-grid">
-          {images && images.length > 0 ? (
-            images.map((image) => (
-              <div key={image.id}>
-                <img
-                  src={image.image}
-                  alt={image.id}
-                  onLoad={(e) => console.log("Image loaded:", e.target.src)}
-                />
-              </div>
-            ))
-          ) : (
-            <p>No images found</p>
-          )}
-        </div>
+        <div className="image-grid">{imagesElement}</div>
       )}
     </div>
   );

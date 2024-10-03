@@ -34,85 +34,20 @@ footer {
   height: 2%;
 }
 
-.footer-content {
-  max-width: 12px;
-  margin: 0;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 100px;
-  height: 100px;
-  margin-right: 1rem;
-  background-image: url("./assets/Logo.png");
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-header nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-}
-
-header nav ul li {
-  margin-left: 0.5rem;
-  margin-right: 2rem;
-  padding-right: 0.5rem;
-}
-
-header nav ul li a {
-  color: white;
-  text-decoration: none;
-}
-
-.home-page,
-.login-page,
-.signup-page,
-.main-app {
-  margin-left: 1150px;
+.MainApp {
+  margin-left: 0;
   margin-top: 50px;
   background-image: url("./assets/Logo.png");
-
   background-color: rgb(101, 96, 96);
   border-radius: 20px;
   padding: 2rem;
-  max-width: 300px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-input {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
+  max-width: 80%; /* Increase the max-width to make the screen bigger */
+  height: 80vh; /* Set the height to 80vh to make the screen bigger */
 }
 
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* Create a grid with 3 columns */
   gap: 10px;
 }
 
@@ -120,4 +55,44 @@ button:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+#enlargedImage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#enlargedImage img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+#closeButton {
+  font-size: 24px;
+  color: white;
+  background-color: black;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .image-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

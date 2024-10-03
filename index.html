@@ -7,6 +7,16 @@
     <title>Vite + React</title>
   </head>
   <body>
+    <div id="enlargedImage" style="display: none">
+      <img id="enlargedImageSrc" />
+      <button
+        id="closeButton"
+        style="position: absolute; top: 10px; right: 10px"
+      >
+        ×
+      </button>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script type="module" src="/src/App.jsx"></script>
