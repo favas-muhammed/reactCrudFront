@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function MainApp() {
   const [images, setImages] = useState([]);
@@ -57,6 +58,20 @@ function MainApp() {
         <div className="image-grid">{imagesElement}</div>
       )}
       <button className="my-board-button">My Board</button>
+      <button
+        className="add-button"
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#007bff",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 }
