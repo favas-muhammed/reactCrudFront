@@ -21,8 +21,16 @@ function MainApp() {
     fetchImages();
   }, []);
 
+  const handleDelete = (id) => {
+    const newImages = images.filter((image) => image.id !== id);
+    setImages(newImages);
+  };
+
   const imagesElement = images.map((image) => (
     <div key={image.id}>
+      <button className="delete-button" onClick={() => handleDelete(image.id)}>
+        <i className="fas fa-trash-alt"></i>
+      </button>
       <img
         src={image.image}
         alt={image.id}
@@ -48,6 +56,7 @@ function MainApp() {
       ) : (
         <div className="image-grid">{imagesElement}</div>
       )}
+      <button className="my-board-button">My Board</button>
     </div>
   );
 }

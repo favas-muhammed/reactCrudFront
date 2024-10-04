@@ -122,14 +122,13 @@ button:hover {
 }
 
 .MainApp {
-  margin-left: 7.3rem;
-  margin-top: 50px;
-  background-image: url("./assets/Logo.png");
-  background-color: rgb(101, 96, 96);
-  border-radius: 20px;
-  padding: 2rem;
-  max-width: 80%;
-  height: 80vh;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
 }
 
 .image-grid {
@@ -142,4 +141,71 @@ button:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.my-board-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.MainApp {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+}
+
+.image-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.my-board-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-button {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.delete-button::after {
+  content: "Delete";
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
