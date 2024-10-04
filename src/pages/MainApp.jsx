@@ -35,14 +35,14 @@ function MainApp() {
         <i className="fas fa-trash-alt"></i>
       </button>
       <img
-        src={`http://localhost:4000/${image.image}`}
+        src={image.url}
         alt={image.id}
         onLoad={(e) => console.log("Image loaded:", e.target.src)}
         onClick={() => {
           const enlargedImage = document.getElementById("enlargedImage");
           enlargedImage.style.display = "block";
           const enlargedImageSrc = document.getElementById("enlargedImageSrc");
-          enlargedImageSrc.src = `http://localhost:4000/${image.image}`;
+          enlargedImageSrc.src = image.url;
           const closeButton = document.getElementById("closeButton");
           closeButton.addEventListener("click", () => {
             enlargedImage.style.display = "none";
@@ -67,7 +67,10 @@ function MainApp() {
       }
       const data = await response.json();
       console.log(data);
-      setImages([...images, newImage]);
+      setImages([
+        ...images,
+        { id: data.id, url: `http://localhost:4000/pictures/${data.id}` },
+      ]);
       setNewImage({ id: "", url: "" });
       setShowForm(false);
     } catch (error) {
@@ -127,7 +130,7 @@ function MainApp() {
               onChange={handleInputChange}
             />
           </div>
-          <button type="submit">Add</button>
+          <button type="submit">save</button>
         </form>
       )}
     </div>
