@@ -6,6 +6,7 @@ function MainApp() {
   const [error, setError] = useState(null);
   const [newImage, setNewImage] = useState({ id: "", url: "" });
   const [showForm, setShowForm] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -29,10 +30,47 @@ function MainApp() {
     setImages(newImages);
   };
 
+  const handleUpdate = (image) => {
+    setSelectedImage(image);
+    setShowForm(true);
+  };
+
+  const handleUpdateSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:4000/pictures/${selectedImage.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newImage),
+        }
+      );
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const data = await response.json();
+      console.log(data);
+      setImages(
+        images.map((image) =>
+          image.id === selectedImage.id ? { ...image, ...newImage } : image
+        )
+      );
+      setShowForm(false);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   const imagesElement = images.map((image) => (
     <div key={image.id}>
       <button className="delete-button" onClick={() => handleDelete(image.id)}>
         <i className="fas fa-trash-alt"></i>
+      </button>
+      <button className="update-button" onClick={() => handleUpdate(image)}>
+        <i className="fas fa-edit"></i>
       </button>
       <img
         src={image.url}
@@ -52,40 +90,29 @@ function MainApp() {
     </div>
   ));
 
-  const handleAddImage = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch("http://localhost:4000/pictures", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newImage),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const data = await response.json();
-      console.log(data);
-      setImages([
-        ...images,
-        { id: data.id, url: `http://localhost:4000/pictures/${data.id}` },
-      ]);
-      setNewImage({ id: "", url: "" });
-      setShowForm(false);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "url") {
-      setNewImage({ ...newImage, [name]: value });
-    } else {
-      setNewImage({ ...newImage, [name]: value });
-    }
-  };
+  const updateForm = (
+    <form onSubmit={handleUpdateSubmit}>
+      <div className="form-group">
+        <label>ID:</label>
+        <input
+          type="text"
+          name="id"
+          value={newImage.id}
+          onChange={(e) => setNewImage({ ...newImage, id: e.target.value })}
+        />
+      </div>
+      <div className="form-group">
+        <label>URL:</label>
+        <input
+          type="text"
+          name="url"
+          value={newImage.url}
+          onChange={(e) => setNewImage({ ...newImage, url: e.target.value })}
+        />
+      </div>
+      <button type="submit">Update</button>
+    </form>
+  );
 
   return (
     <div className="MainApp">
@@ -94,44 +121,11 @@ function MainApp() {
       ) : (
         <div className="image-grid">{imagesElement}</div>
       )}
-      <button className="my-board-button">My Board</button>
-      <button
-        className="add-button"
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-        onClick={() => setShowForm(true)}
-      >
-        Add
-      </button>
       {showForm && (
-        <form onSubmit={handleAddImage}>
-          <div className="form-group">
-            <label>ID:</label>
-            <input
-              type="text"
-              name="id"
-              value={newImage.id}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>URL:</label>
-            <input
-              type="text"
-              name="url"
-              value={newImage.url}
-              onChange={handleInputChange}
-            />
-          </div>
-          <button type="submit">save</button>
-        </form>
+        <div className="update-form">
+          <h2>Update Image</h2>
+          {updateForm}
+        </div>
       )}
     </div>
   );
